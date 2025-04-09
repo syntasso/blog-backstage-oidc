@@ -1,0 +1,79 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: test-configmap
+  title: A Test ConfigMap
+  description: A test configmap for testing purposes
+  tags:
+    - kratix
+  annotations:
+    backstage.io/kubernetes-id: configmap
+    kratix.io/api-group: v1
+    kratix.io/api-name: configmap
+    kratix.io/kind: ConfigMap
+    kratix.io/backstage-promise-template: configmap-template
+    kratix.io/description: A test config map
+    kratix.io/promise-name: configmap
+    kratix.io/status: ""
+    kratix.io/type: resource
+  links:
+    - icon: help
+      title: Support
+      url: https://docs.kratix.io/ske/
+spec:
+  lifecycle: production
+  owner: kratix-platform
+  type: kratix-resource
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  creationTimestamp: null
+  description: ConfigMap as Service
+  name: ConfigMap
+  tags:
+    - kratix
+    - configmap-promise
+  title: ConfigMap
+spec:
+  lifecycle: experimental
+  owner: kratix-platform
+  parameters:
+    - properties:
+        name:
+          description: The name of the configmap
+          errorMessage:
+            pattern: must be lowercase letters, numbers, and hyphens; must start and end with a letter or number.
+          maxLength: 63
+          minLength: 1
+          pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+          title: Name
+          type: string
+      required:
+        - name
+      title: Metadata
+    - properties:
+        data:
+          ui:title: ConfigMap Contents
+          additionalProperties:
+            type: string
+          description: The Data of the ConfigMap
+          type: object
+      title: Config Data
+  steps:
+    - action: ske:configure-resource
+      id: ske-configure-resource
+      input:
+        manifest: |
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            labels:
+              backstage.io/kubernetes-id: namespace
+              kratix.io/managed-by: backstage
+            name: ${{ parameters.name }}
+            namespace: default
+          data: ${{ parameters.data | dump }}
+      name: Configure Namespace
+  type: kratix-resource
