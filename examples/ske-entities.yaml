@@ -1,37 +1,9 @@
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: test-configmap
-  title: A Test ConfigMap
-  description: A test configmap for testing purposes
-  tags:
-    - kratix
-  annotations:
-    backstage.io/kubernetes-id: configmap
-    kratix.io/api-group: v1
-    kratix.io/api-name: configmap
-    kratix.io/kind: ConfigMap
-    kratix.io/backstage-promise-template: configmap-template
-    kratix.io/description: A test config map
-    kratix.io/promise-name: configmap
-    kratix.io/status: ""
-    kratix.io/type: resource
-  links:
-    - icon: help
-      title: Support
-      url: https://docs.kratix.io/ske/
-spec:
-  lifecycle: production
-  owner: kratix-platform
-  type: kratix-resource
----
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   creationTimestamp: null
   description: ConfigMap as Service
-  name: ConfigMap
+  name: configmap-promise-template
   tags:
     - kratix
     - configmap-promise
