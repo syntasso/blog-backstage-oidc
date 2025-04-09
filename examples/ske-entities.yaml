@@ -67,7 +67,7 @@ spec:
       input:
         manifest: |
           apiVersion: v1
-          kind: Namespace
+          kind: ConfigMap
           metadata:
             labels:
               backstage.io/kubernetes-id: namespace
@@ -75,5 +75,5 @@ spec:
             name: ${{ parameters.name }}
             namespace: default
           data: ${{ parameters.data | dump }}
-      name: Configure Namespace
+      name: Configure ConfigMap
   type: kratix-resource

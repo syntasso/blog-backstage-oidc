@@ -105,6 +105,11 @@ catalog:
       rules:
         - allow: [User, Group]
 
+    - type: url
+      target: https://github.com/syntasso/blog-backstage-oidc/blob/main/examples/ske-entities.yaml
+      rules:
+        - allow: [Component, Template]
+
     ## Uncomment these lines to add more example data
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
